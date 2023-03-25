@@ -2,10 +2,8 @@ package com.example.kotlin_oop
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.ArrayAdapter
-import android.widget.EditText
-import android.widget.ListView
-import android.widget.Toast
+import android.widget.*
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class MainActivity : AppCompatActivity() {
@@ -28,16 +26,15 @@ class MainActivity : AppCompatActivity() {
         arrayAdapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, users)
         listView.adapter = arrayAdapter
 
-        floatingActionButton.setOnClickListener{
-            userInput = editText.text.toString()
-            if(userInput.isEmpty()){
-                Toast.makeText(this,"Please select a name", Toast.LENGTH_SHORT).show()
-            }
-            else
-            {
-                users.add(0,userInput)
-                arrayAdapter.notifyDataSetChanged()
-            }
+        floatingActionButton.setOnClickListener {
+//            userInput = editText.text.toString()
+//            if (userInput.isEmpty()) {
+//                Toast.makeText(this, "Please select a name", Toast.LENGTH_SHORT).show()
+//            } else {
+//                users.add(0, userInput)
+//                arrayAdapter.notifyDataSetChanged()
+//            }
+            showDialogOne()
         }
 
         listView.setOnItemClickListener { parent, _, position, _ ->
@@ -47,5 +44,27 @@ class MainActivity : AppCompatActivity() {
             arrayAdapter.notifyDataSetChanged()
 
         }
+
+
+    }
+
+    fun showDialogOne() {
+
+        val dialog = BottomSheetDialog(this)
+        dialog.setContentView(R.layout.sample_dialog_one)
+        val btnEdit = dialog.findViewById<RelativeLayout>(R.id.rl_edit)
+        val btnDelete = dialog.findViewById<RelativeLayout>(R.id.rl_delete)
+        val btnAdd = dialog.findViewById<RelativeLayout>(R.id.rl_add)
+
+        btnEdit?.setOnClickListener {
+            Toast.makeText(this, "Clicked on Edit", Toast.LENGTH_SHORT).show()
+        }
+        btnDelete?.setOnClickListener {
+            Toast.makeText(this, "Clicked on Delete", Toast.LENGTH_SHORT).show()
+        }
+        btnAdd?.setOnClickListener {
+            Toast.makeText(this, "Clicked on Add", Toast.LENGTH_SHORT).show()
+        }
+        dialog.show()
     }
 }
